@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "ClinicApp",
+    "slug": "ClinicApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "ClinicApp"
+}
