@@ -13,7 +13,7 @@ export const COLOR = {
   gray: "rgb(55 65 81)",
   red: "#e81e4d",
   green: "#46d160",
-  offWhite: "#F3F4F8",
+  offWhite: "#F3F4F",
   gray_100: "#f3f4f6",
 };
 export const SHADOWS = {

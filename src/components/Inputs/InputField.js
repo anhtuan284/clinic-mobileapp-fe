@@ -21,6 +21,7 @@ const InputField = ({
   onPressIn,
   icon, // Thêm prop icon
   OnPressIncon,
+  onBlur,
 }) => {
   const combinedStyle = StyleSheet.compose(styleFields.inputForm, style);
 
@@ -29,8 +30,8 @@ const InputField = ({
       <Text style={styleFields.labelText}>{label}</Text>
       {icon && (
         <View style={styleFields.iconContainer}>
-          <TouchableOpacity onPress={OnPressIncon} style={{top: 7}}>
-            <Feather name={icon} size={24} color="#333" />
+          <TouchableOpacity onPress={OnPressIncon} style={{top: 8}}>
+            <Feather name={icon} size={22} color="#6b6b6b" />
           </TouchableOpacity>
         </View>
       )}
@@ -43,6 +44,7 @@ const InputField = ({
         keyboardType={keyboardType}
         value={value}
         onPressIn={onPressIn}
+        onBlur={onBlur}
       />
       {error && <Text style={styleFields.errorText}>{error}</Text>}
     </View>

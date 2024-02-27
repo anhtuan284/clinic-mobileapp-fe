@@ -29,6 +29,9 @@ export default StyleSheet.create({
         color: '#fff',
         marginVertical: 16,
     }, avatar: {
+        borderWidth: 2,
+        borderColor: "blue",
+        borderRadius: 10,
         width: 80,
         height: 80,
         margin: 5

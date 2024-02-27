@@ -8,48 +8,31 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import MyContext from "../../configs/MyContext";
+import MyStyles from "../../styles/MyStyles";
+import API, { authApi, endpoints } from "../../configs/API";
+import DoctorList from "../Doctor/DoctorList";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const getItem = (_data, index) => ({
-  id: Math.random().toString(12).substring(0),
-  title: `Item ${index + 1}`,
-});
-
-const getItemCount = _data => 50;
-
-const Item = ({title}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
 
 export default Home = () => {
+  const [doctor, setDoctor] = React.useState(null);
+
+    React.useEffect(() => {
+        const loadDoctor = async () => {
+            try {
+              let token = await AsyncStorage.getItem("access-token")
+              let res = await authApi(token).get(endpoints['doctors']);
+              setDoctor(res.data.results)
+            } catch (ex) {
+              setDoctor([])
+              console.error(ex);
+            }
+        }
+        loadDoctor();
+    }, []);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <VirtualizedList
-        initialNumToRender={4}
-        renderItem={({item}) => <Item title={item.title} />}
-        keyExtractor={item => item.id}
-        getItemCount={getItemCount}
-        getItem={getItem}
-      />
-    </SafeAreaView>
+    <DoctorList doctors={doctor} />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    height: 150,
-    justifyContent: 'center',
-    marginVertical: 8,
-    marginHorizontal: 16,
-    padding: 20,
-  },
-  title: {
-    fontSize: 32,
-  },
-});

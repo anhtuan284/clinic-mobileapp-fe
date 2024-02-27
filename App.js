@@ -22,6 +22,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { SHADOWS } from "./src/constants";
 import ServiceScreen from "./src/screens/ServiceScreen";
+import PrescriptionScreen from "./src/screens/PrescriptionScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -47,7 +48,7 @@ const AuthStack = () => {
     <NavigationContainer >
       <Stack.Navigator  
         screenOptions={{ headerShown: false }}
-        initialRouteName="Home"
+        initialRouteName="Welcome"
       >
         <Stack.Screen name="Welcome" component={WelcomScreen} />
         <Stack.Screen name="Login" component={Login} />
@@ -69,21 +70,21 @@ const AppNav = () => {
               return (
                 <View style={{alignItems: "center", justifyContent: "center", gap: 7}}> 
                   <Entypo name="home" size={24} color={focused ? "#16247d": "#838487"} />
-                  <Text style={{fonSize: 12, color: "#838487"}}>Home</Text>
+                  <Text style={{fontSize: 12, color: "#838487"}}>Home</Text>
                 </View>
               )
             }
           }}
           />
           <Tab.Screen 
-          name="Profile" 
-          component={ProfileScreen} 
+          name="Prescription" 
+          component={PrescriptionScreen} 
           options={{
             tabBarIcon: ({focused})=>{
               return (
                 <View style={{alignItems: "center", justifyContent: "center", gap: 7}}> 
                 <Entypo name="heart" size={24} color={focused ? "#16247d": "#838487"} />
-                  <Text style={{fonSize: 12, color: "#838487"}}>Doctors</Text>
+                  <Text style={{fontSize: 12, color: "#838487"}}>Prescription</Text>
             </View>
               )
             }
@@ -120,7 +121,7 @@ const AppNav = () => {
               return (
                 <View style={{alignItems: "center", justifyContent: "center", gap: 7}}> 
                     <MaterialIcons name="stacked-line-chart" size={24} color={focused ? "#16247d": "#838487"} />
-                    <Text style={{fonSize: 12, color: "#16247d"}}>Prices</Text>
+                    <Text style={{fontSize: 12, color: "#16247d"}}>Prices</Text>
                 </View>
               )
             }
@@ -144,7 +145,7 @@ const AppNav = () => {
                   }}
                   style={{width: 10,height: 10}}
                 /> */}
-                  <Text style={{fonSize: 12, color: "#16247d"}}>Profile</Text>
+                  <Text style={{fontSize: 12, color: "#16247d"}}>Profile</Text>
                 </View>
               )
             }
@@ -160,7 +161,7 @@ export default function App() {
   return (
     
     <MyContext.Provider value={[user, dispatch]}>
-        {user===null? <AuthStack /> : <AppNav/>}
+        {user===null? <AuthStack/> : <AppNav/>}
         {/* <Drawer.Navigator screenOptions={{headerRight: Logout}}>
           <Drawer.Screen name="Home" component={Home} options={{title: 'Home Page'}} />
           {user===null?<>

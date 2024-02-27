@@ -4,10 +4,10 @@ import { COLOR } from "../constants";
 export default StyleSheet.create({
     container: {
         flex: 1,
-        margin: 5,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 10,
+        
     }, 
     row: {
         flexDirection: "row"
@@ -24,6 +24,16 @@ export default StyleSheet.create({
         maxWidth:270,
         
     }, 
+    orderNum: {
+        alignSelf: "center",
+        fontWeight: "bold",
+        fontSize: 34,
+        borderColor: 'blue',
+        borderWidth: 2,
+        borderRadius: 15,
+        padding: 10,
+        marginBottom: 10,
+    },
     backgroundImage: {
         flex: 1,
         justifyContent: 'center',
@@ -31,7 +41,6 @@ export default StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: "bold", 
-        color: "blue"
     }, 
     fullScreenBox: {
         flex: 1,
@@ -60,6 +69,54 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
+    presView: {
+        margin: 5,
+        borderRadius: 10,
+        backgroundColor: "white",
+        width: '80%',
+        padding: 10,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    payView:{
+        margin: 5,
+        borderRadius: 10,
+        backgroundColor: "lightgreen",
+        width: '90%',
+        padding: 10,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    nopayView: {
+        margin: 5,
+        borderRadius: 10,
+        backgroundColor: "lightcoral",
+        width: '90%',
+        padding: 10,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
     confirmText: {
         color: "blue",
         fontSize: 20,
@@ -75,10 +132,22 @@ export default StyleSheet.create({
         color: 'white',
     },
     button: {
-        width: "30%",
+        width: "40%",
         alignItems:"center",
         textAlign: "center",
         backgroundColor: COLOR.PRIMARY,
+        borderRadius: 10,
+        paddingHorizontal: 16,
+        paddingVertical: 14,
+        fontSize: 16,
+        color: 'white',
+        marginVertical: 16,
+    },
+    disableButton: {
+        width: "30%",
+        alignItems:"center",
+        textAlign: "center",
+        backgroundColor: COLOR.text_weak_color,
         borderRadius: 10,
         paddingHorizontal: 16,
         paddingVertical: 12,
@@ -89,6 +158,42 @@ export default StyleSheet.create({
     buttonText: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 17,
+    },
+    paidStatus: {
+        backgroundColor: 'lightgreen',
+        fontWeight: 'bold',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 8,
+      },
+    notPaidStatus: {
+        backgroundColor: 'lightcoral',
+        fontWeight: 'bold',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 8,
+    },
+    error: {
+        fontSize: 14,
+        color: 'red',
+        fontWeight: 'bold',
+        marginTop: 1,
+    },
+    doctorView: {
+        flex: 1,
+        margin: 10,
+        borderRadius: 10,
+        backgroundColor: "white",
+        width: '45%',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
     }
 });
