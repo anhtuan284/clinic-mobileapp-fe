@@ -14,23 +14,21 @@ const NurseAppointment = () => {
   const [date, setDate] = useState(null);
   const [user,] = React.useContext(MyContext)   
   const [sort, setSort] = useState({
-    "selected_date": "2024-02-28",
-    "status": "pending"
+    "selected_date": "",
+    "status": ""
   });
 
 
   useEffect(() => {
     const fetchAppointment = async () => {
-        let form = new FormData();
-        for (let key in sort)
-          form.append(key, sort[key]);
-        try {
-        console.log(form);
-        const token = await AsyncStorage.getItem('access-token')
-        const response = await authApi(token).get(endpoints['get-list-pending'], sort, {headers: {'Content-Type': 'application/json'}});
-        console.log(response.data);
+      try {
+          console.log(form);
+          const token = await AsyncStorage.getItem('access-token')
+          const response = await authApi(token).get(endpoints['get-list-pending']);
+          console.log(response.data);
         if (response.data) {
           setAppointment(response.data);    
+          console.log(appointment)
         } else {
           console.log("Không có cuộc hẹn nào đang chờ xác nhận.");
         }
@@ -39,27 +37,22 @@ const NurseAppointment = () => {
       }
     };
     fetchAppointment();
-  }, [sort]);
+  }, []);
 
-  
-  const handleSelectDate = async () => {
-    if (!date) {
-      console.log("Please select a date.");
-      return;
-    }
-    const formattedDate = date.replace(/\//g, '-');
-    setDate(formattedDate)
-    setSort({...sort, selected_date: formattedDate})
-    console.log(sort)
-  };
 
-  const handelStatusChange = async () => {
+
+  const handleCancelAppointment = async () => {
+
+  }
+
+  const handelStatusChange = async (id) => {
     try {
         const token = await AsyncStorage.getItem('access-token')
-        const response = await authApi(token).patch(endpoints['status-change-cancel'](appointment.id));
+        let form = new FormData()
+        form.append('status', 'approved')
+        const response = await authApi(token).patch(endpoints['status-change'](id), form, {headers: {'Content-Type': 'multipart/form-data'}});
         if (response.status === 200) {
-          Alert.alert("Hủy thành công lịch hẹn")
-          
+          Alert.alert("You just approved this the appoinment !")
         } else {
           console.log("Không có cuộc hẹn nào.");
           setAppointment([])
@@ -74,53 +67,28 @@ const NurseAppointment = () => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={MyStyles.container}>
       <ScrollView>
+        <Text style={[MyStyles.title]}>Pending Requested Appointment</Text>
         {appointment === null ? <ActivityIndicator /> : <>
           {
-            appointment.map(c => (
-              <View style={styles.appointment}>
-                {appointment.order_number && <Text style={[MyStyles.orderNum]}>0{appointment.order_number}</Text>}
-                <Text style={{fontWeight: 'bold'}}>Patient: {appointment.patient.first_name} {appointment.patient.first_name}</Text>
-                <Text>Created date: {appointment.created_date}</Text>
-                <Text>Scheduled date: {appointment.scheduled_date}</Text>
-                <Text style={{fontWeight: 'bold'}}>Status: {appointment.status}</Text>
+            appointment.map(a => (
+              <View style={styles.appointment} key={a.id}>
+                {a.order_number && <Text style={[MyStyles.orderNum]}>0{a.order_number}</Text>}
+                <Text style={{fontWeight: 'bold'}}>Patient: {a.patient.first_name} {a.patient.last_name}</Text>
+                <Text>Created date: {a.created_date}</Text>
+                <Text>Scheduled date: {a.scheduled_date}</Text>
+                <Text style={{fontWeight: 'bold'}}>Status: {a.status}</Text>
                 <View styles={[MyStyles.row]}>
-                  <TouchableOpacity onPress={handelStatusChange} style={styles.cancelButton}>
-                    <Text style={styles.buttonText}>A</Text>
+                  <TouchableOpacity onPress={() => handelStatusChange(a.id)} style={styles.cancelButton}>
+                    <Text style={styles.buttonText}>Accept</Text>
                   </TouchableOpacity>
-                  {appointment.order_numer &&
-                    <TouchableOpacity onPress={handleCancelAppointment} style={styles.cancelButton}>
+                  {a.order_numer &&
+                    <TouchableOpacity  style={styles.cancelButton}>
                       <Text style={styles.buttonText}>Cancel Appointment</Text>
                     </TouchableOpacity>
                   }
                 </View>
-
-                {/* MODAL SELECT DAY TO SORT */}
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={open}
-                  >
-                    <View style={MyStyles.centeredView}>
-                          <View style={MyStyles.modalView}>
-                              <DatePicker
-                              mode="calendar"
-                              minimumDate={startDate}
-                              selected={date}
-                              onDateChange={handleSelectDate}
-                              />
-                              <View style={[MyStyles.row, {gap: 60}]}>
-                                  <TouchableOpacity onPress={() => setOpen(!open)}>
-                                      <Text style={[MyStyles.confirmText,{color: 'grey'}]}>Cancel</Text>
-                                  </TouchableOpacity>
-                                  <TouchableOpacity onPress={handleCancelAppointment}>
-                                      <Text style={MyStyles.confirmText}>Confirm</Text>
-                                  </TouchableOpacity>
-                              </View>
-                          </View>
-                      </View>
-                  </Modal>
               </View>
             ))
             }
@@ -153,6 +121,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        margin: 10,
     },
     createButton: {
         backgroundColor: '#007bff',

@@ -21,10 +21,7 @@ export default UserAppointment = () => {
 
   useEffect(() => {
     const fetchAppointment = async () => {
-        const form = {
-            "user": user.id
-        }
-        try {
+      try {
         console.log(form);
         const token = await AsyncStorage.getItem('access-token')
         const response = await authApi(token).get(endpoints['get-user-appointment']);
@@ -35,7 +32,6 @@ export default UserAppointment = () => {
           console.log("Không có cuộc hẹn nào.");
         }
       } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu cuộc hẹn: ", error);
       }
     };
     fetchAppointment();
@@ -43,7 +39,7 @@ export default UserAppointment = () => {
 
   
   const createAppointment = async () => {
-    if (!date) {
+    if (!date) { 
       console.log("Please select a date.");
       return;
     }
@@ -116,6 +112,7 @@ export default UserAppointment = () => {
         </View>
       ) : (
         <View style={styles.center}>
+            <Text style={{marginVertical: 20, textAlign: 'center'}}>You don not have any Appointment!{"\n"} Select day to create one</Text>
             <TouchableOpacity style={styles.createButton} onPress={() => setOpen(true)}>
                 <Text style={styles.buttonText}>Select Date</Text>
             </TouchableOpacity>

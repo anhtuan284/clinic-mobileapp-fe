@@ -24,7 +24,7 @@ export const endpoints = {
 
     'patient': (id) => `/patient/${id}/`,
 
-    'prescription': '/prescription/',
+    'create-prescription': '/prescription/',
     'user-pres': '/prescription/user-pres/',
     'prescription-details': (prescriptionId) => `/prescription/${prescriptionId}/`,
     'add-medicine': (id) => `/prescription/${id}/add-medicine/`,

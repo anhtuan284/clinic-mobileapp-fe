@@ -53,6 +53,21 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginTop: 10,
     },
+    buttonPayMomo:{
+        paddingRight: 30,
+        paddingLeft: 30,
+        alignSelf: 'center', 
+        borderRadius:5,
+        fontWeight: 'bold',
+        backgroundColor: "#a9206d",
+
+    },
+    payMentText:{
+        padding: 5,
+        color: "#fff",
+        fontSize: 20,
+        fontWeight: "normal",
+    },
     modalView: {
         margin: 20,
         borderRadius: 50,
